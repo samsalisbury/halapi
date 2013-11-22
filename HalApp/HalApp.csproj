@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\GetRoot.cs" />
     <Compile Include="IGet.cs" />
+    <Compile Include="FakeData.cs" />
     <Compile Include="Resources\Libraries\GetLibraries.cs" />
     <Compile Include="Resources\Libraries\Library\Books\Book\GetBook.cs" />
     <Compile Include="Resources\Libraries\Library\Books\Book\PutBook.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Resources\Libraries\Library\GetLibrary.cs" />
     <Compile Include="Resources\Libraries\Library\PutLibrary.cs" />
     <Compile Include="Resources\Libraries\PostLibrary.cs" />
+    <Compile Include="Route.cs" />
     <Compile Include="Server.cs" />
   </ItemGroup>
   <ItemGroup>

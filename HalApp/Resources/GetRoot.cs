@@ -2,7 +2,7 @@
 
 namespace HalApp.Resources
 {
-	public class GetRoot : IGet<Root>
+	public class GetRoot : IGetSingle<Root>
 	{
 		public Root Get(dynamic args = null)
 		{

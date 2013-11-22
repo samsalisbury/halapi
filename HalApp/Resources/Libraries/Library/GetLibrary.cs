@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HalApp.Resources.Libraries.Library
+﻿namespace HalApp.Resources.Libraries.Library
 {
-	class GetLibrary
+	public class GetLibrary : IGetSingle<Entities.Library>
 	{
+		public int LibraryId { get; set; }
+
+		public Entities.Library Get(dynamic args = null)
+		{
+			return FakeData.Libraries[LibraryId];
+		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HalApp.Entities;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -36,6 +35,21 @@ namespace HalApp.UnitTests
 				var entity = JsonConvert.DeserializeObject<IList<Library>>(deserialised.Content.ToString());
 
 				entity.Count.ShouldBe(3);
+			}
+		}
+
+		public class when_calling_get_library
+		{
+			[Test]
+			public void it_should_return_the_library_details()
+			{
+				var server = new Server();
+				var result = server.Get("/libraries/2");
+
+				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
+				var entity = JsonConvert.DeserializeObject<Library>(deserialised.Content.ToString());
+
+				entity.Name.ShouldBe("Haringey Library");
 			}
 		}
 	}
