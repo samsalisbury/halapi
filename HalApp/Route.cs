@@ -2,44 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace HalApp
 {
 	public class Route
 	{
 		public string Name { get; set; }
-		public IList<Route> Children { get; set; }
-		public IHttpHandler Handler { get; set; }
+		public ISet<Route> Children { get; set; }
+		public Type Handler { get; set; }
 
 		public static Route BuildRoots()
 		{
 			var root = new Route();
-
 			var types = Assembly.GetExecutingAssembly().DefinedTypes.ToList();
 			var handlers = types.Where(IsHandler).ToList();
 
-			foreach (var h in handlers)
+			foreach (var handler in handlers)
 			{
-				var path =
-					string.Format("{0}.{1}", h.Namespace, h.Name)
-						.Replace("HalApp.Resources.", "")
-						.Replace(".", "/")
-						.Replace(h.Name, "");
+				var path = ExtractPath(handler);
 
-
-				//f(types.Where(t => t.Name == ))
-				
-
-				Console.WriteLine("\"{0}\"", path);
+				root.AddChildren(path, handler);
 			}
 
-			return null;
+			return root;
+		}
+
+		public void AddChildren(Stack<string> path, Type handler)
+		{
+			if (path.Count == 0)
+			{
+				Handler = handler;
+			}
+			else
+			{
+				var pathPart = path.Pop();
+
+				if (!HasChild(pathPart))
+					Children.Add(new Route {Name = pathPart});
+
+				Children.Single(c => c.Name == pathPart).AddChildren(path, handler);
+			}
+		}
+
+		private bool HasChild(string name)
+		{
+			return Children.Any(c => c.Name == name);
 		}
 
 		private static bool IsHandler(Type t)
 		{
-			return typeof (IHttpHandler).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract;
+			return typeof(IHttpHandler).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract;
+		}
+
+		private static Stack<string> ExtractPath(Type handler)
+		{
+			return new Stack<string>(
+				string.Format("{0}.{1}", handler.Namespace, handler.Name)
+					.Replace("HalApp.Resources.", "")
+					.Replace(".", "/")
+					.Replace(handler.Name, "")
+					.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries).Reverse());
 		}
 
 		public Route Find(string method, string path)
