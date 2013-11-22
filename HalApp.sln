@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalApp", "HalApp\HalApp.csproj", "{E720380F-1297-4E06-9113-423A81870A5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HalApp.Console", "HalApp.Console\HalApp.Console.csproj", "{BD60E4E6-D6D8-4394-9D77-0F4AB1735A02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B778833E-93C1-416D-A0A1-3E41267D13F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C43BA273-2471-4588-8939-14C25B646C45}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E720380F-1297-4E06-9113-423A81870A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E720380F-1297-4E06-9113-423A81870A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E720380F-1297-4E06-9113-423A81870A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E720380F-1297-4E06-9113-423A81870A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD60E4E6-D6D8-4394-9D77-0F4AB1735A02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD60E4E6-D6D8-4394-9D77-0F4AB1735A02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD60E4E6-D6D8-4394-9D77-0F4AB1735A02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD60E4E6-D6D8-4394-9D77-0F4AB1735A02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B778833E-93C1-416D-A0A1-3E41267D13F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B778833E-93C1-416D-A0A1-3E41267D13F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B778833E-93C1-416D-A0A1-3E41267D13F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B778833E-93C1-416D-A0A1-3E41267D13F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
