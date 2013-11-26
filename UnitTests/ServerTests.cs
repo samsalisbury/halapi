@@ -8,13 +8,12 @@ namespace HalApp.UnitTests
 {
 	public class ServerTests
 	{
-		public class when_calling_get_root
+		public class when_calling_get_root : with_server
 		{
 			[Test]
 			public void it_returns_the_root_json()
 			{
-				var server = new Server(Route.BuildRoutes());
-				var result = server.Get("/");
+				var result = Server.Get("/");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
 				var entity = JsonConvert.DeserializeObject<Root>(deserialised.Content.ToString());
@@ -23,13 +22,12 @@ namespace HalApp.UnitTests
 			}
 		}
 
-		public class when_calling_get_libraries
+		public class when_calling_get_libraries : with_server
 		{
 			[Test]
 			public void it_should_return_a_list_of_libraries()
 			{
-				var server = new Server(Route.BuildRoutes());
-				var result = server.Get("/libraries");
+				var result = Server.Get("/libraries");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
 				var entity = JsonConvert.DeserializeObject<IList<Library>>(deserialised.Content.ToString());
@@ -38,18 +36,29 @@ namespace HalApp.UnitTests
 			}
 		}
 
-		public class when_calling_get_library
+		public class when_calling_get_library : with_server
 		{
 			[Test]
 			public void it_should_return_the_library_details()
 			{
-				var server = new Server(Route.BuildRoutes());
-				var result = server.Get("/libraries/2");
+				var result = Server.Get("/libraries/2");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
 				var entity = JsonConvert.DeserializeObject<Library>(deserialised.Content.ToString());
 
 				entity.Name.ShouldBe("Haringey Library");
+			}
+		}
+
+		public abstract class with_server
+		{
+			protected Server Server;
+
+			[SetUp]
+			public void create_server()
+			{
+				var resolver = new RequestResolver(Route.BuildRoutes());
+				Server = new Server(resolver);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ namespace HalApp.UnitTests
 		    {
 			    var getter = new GetRoot();
 
-			    var result = getter.Get();
+			    var result = getter.Get(null);
 
 			    result.ShouldNotBe(null);
 		    }

@@ -49,6 +49,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionHelpers.cs" />
+    <Compile Include="RequestResolver.cs" />
     <Compile Include="Resources\GetRoot.cs" />
     <Compile Include="IGet.cs" />
     <Compile Include="FakeData.cs" />

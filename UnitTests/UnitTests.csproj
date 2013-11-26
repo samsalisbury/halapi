@@ -54,6 +54,7 @@
     <Compile Include="GetLibraryTests.cs" />
     <Compile Include="GetRootTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestResolverTests.cs" />
     <Compile Include="RouteTests.cs" />
     <Compile Include="ServerTests.cs" />
   </ItemGroup>

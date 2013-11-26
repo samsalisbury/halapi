@@ -4,7 +4,7 @@ namespace HalApp.Resources
 {
 	public class GetRoot : IGet<Root>
 	{
-		public Root Get(dynamic args = null)
+		public Root Get(dynamic args)
 		{
 			return new Root
 			{

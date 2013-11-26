@@ -6,7 +6,7 @@
 
 	public interface IGet<out TEntity> : IRequestHandler
 	{
-		TEntity Get(dynamic args = null);
+		TEntity Get(dynamic args);
 	}
 
 	public interface IGet<out TEntity, TId> : IGet<TEntity>
