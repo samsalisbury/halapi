@@ -38,11 +38,8 @@ namespace HalApp
 			if (path.Count == 0)
 			{
 				HandlerType = handler;
-				if (handler.IsAssignableTo(typeof(IGet<>)))
-				{
-					HandlerType = handler;
+				if (handler.IsAssignableTo(typeof(IGet<,>)))
 					IsId = true;
-				}
 			}
 			else
 			{
@@ -54,8 +51,6 @@ namespace HalApp
 				Children.Single(c => c.Name == pathPart).AddChildren(path, handler);
 			}
 		}
-
-		
 
 		private bool HasChild(string name)
 		{
@@ -85,13 +80,11 @@ namespace HalApp
 
 		private Route ResolveRoute(string method, string path)
 		{
-			if (path == "/" || path == string.Empty)
+			if (path == string.Empty)
 				return this;
 
 			var pathPart = Pop(ref path);
-			var route = Children.SingleOrDefault(r => r.Name == pathPart);
-			if (route == null)
-				route = Children.SingleOrDefault(r => r.IsId);
+			var route = Children.SingleOrDefault(r => r.Name == pathPart) ?? Children.SingleOrDefault(r => r.IsId);
 
 			return route == null ? null : route.ResolveRoute(method, path);
 		}
