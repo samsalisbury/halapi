@@ -2,9 +2,9 @@
 
 namespace HalApp.Resources
 {
-	public class GetRoot : Getter<Root>
+	public class GetRoot : IGet<Root>
 	{
-		public override Root Get(dynamic args = null)
+		public Root Get(dynamic args = null)
 		{
 			return new Root
 			{
