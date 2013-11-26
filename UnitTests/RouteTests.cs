@@ -1,4 +1,6 @@
 ﻿using HalApp.Resources;
+using HalApp.Resources.Libraries;
+using HalApp.Resources.Libraries.Library;
 using NUnit.Framework;
 using Shouldly;
 
@@ -19,7 +21,7 @@ namespace HalApp.UnitTests
 		{
 			var routes = Route.BuildRoutes();
 
-			routes.Find("GET", "/libraries").HandlerType.FullName.ShouldBe(typeof(GetRoot).FullName);
+			routes.Find("GET", "/libraries").HandlerType.FullName.ShouldBe(typeof(GetLibraries).FullName);
 		}
 
 		[Test]
@@ -27,7 +29,7 @@ namespace HalApp.UnitTests
 		{
 			var routes = Route.BuildRoutes();
 
-			routes.Find("GET", "/libraries/2'").HandlerType.FullName.ShouldBe(typeof(GetRoot).FullName);
+			routes.Find("GET", "/libraries/2'").HandlerType.FullName.ShouldBe(typeof(GetLibrary).FullName);
 		}
 	}
 }

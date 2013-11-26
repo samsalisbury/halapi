@@ -78,6 +78,11 @@ namespace HalApp
 
 		public Route Find(string method, string path)
 		{
+			return ResolveRoute(method, path.TrimStart('/'));
+		}
+
+		private Route ResolveRoute(string method, string path)
+		{
 			if (path == "/" || path == string.Empty)
 				return this;
 
@@ -85,13 +90,13 @@ namespace HalApp
 			var route = Children.SingleOrDefault(r => r.Name == pathPart)
 			            ?? Children.SingleOrDefault(r => r.IsId);
 
-			return route == null ? null : route.Find(method, path);
+			return route == null ? null : route.ResolveRoute(method, path);
 		}
 
 		static string Pop(ref string path)
 		{
 			var returnable = path.Split(new[] {'/'}, 2)[0];
-			path = path.Substring(returnable.Length + 1);
+			path = path.Length > returnable.Length ? path.Substring(returnable.Length + 1) : string.Empty;
 
 			return returnable;
 		}
