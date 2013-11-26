@@ -9,9 +9,15 @@ namespace HalApp
 	{
 		public string Name { get; set; }
 		public ISet<Route> Children { get; set; }
-		public Type Handler { get; set; }
+		public Type HandlerType { get; set; }
+		public bool IsId { get; set; }
 
-		public static Route BuildRoots()
+		public Route()
+		{
+			Children = new SortedSet<Route>();
+		}
+
+		public static Route BuildRoutes()
 		{
 			var root = new Route();
 			var types = Assembly.GetExecutingAssembly().DefinedTypes.ToList();
@@ -31,7 +37,12 @@ namespace HalApp
 		{
 			if (path.Count == 0)
 			{
-				Handler = handler;
+				HandlerType = handler;
+				if (handler.IsAssignableFrom(typeof (IGet<,>)))
+				{
+					HandlerType = handler;
+					IsId = true;
+				}
 			}
 			else
 			{
@@ -51,7 +62,7 @@ namespace HalApp
 
 		private static bool IsHandler(Type t)
 		{
-			return typeof(IHttpHandler).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract;
+			return typeof(IRequestHandler).IsAssignableFrom(t) && t.IsClass && !t.IsAbstract;
 		}
 
 		private static Stack<string> ExtractPath(Type handler)
@@ -61,20 +72,20 @@ namespace HalApp
 					.Replace("HalApp.Resources.", "")
 					.Replace(".", "/")
 					.Replace(handler.Name, "")
+					.ToLowerInvariant()
 					.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries).Reverse());
 		}
 
 		public Route Find(string method, string path)
 		{
-			if (path.Length == 0)
+			if (path == "/" || path == string.Empty)
 				return this;
 
-			var route = Children.SingleOrDefault(r => r.Name == Pop(ref path));
+			var pathPart = Pop(ref path);
+			var route = Children.SingleOrDefault(r => r.Name == pathPart)
+			            ?? Children.SingleOrDefault(r => r.IsId);
 
-			if (route == null)
-				return null;
-
-			return route.Find(method, path);
+			return route == null ? null : route.Find(method, path);
 		}
 
 		static string Pop(ref string path)

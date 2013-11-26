@@ -1,12 +1,12 @@
 ﻿namespace HalApp.Resources.Libraries.Library
 {
-	public class GetLibrary : IGetSingle<Entities.Library>
+	public class GetLibrary : Getter<Entities.Library, int>
 	{
-		public int LibraryId { get; set; }
+		public new int Id { get; set; }
 
-		public Entities.Library Get(dynamic args = null)
+		public override Entities.Library Get(dynamic args = null)
 		{
-			return FakeData.Libraries[LibraryId];
+			return FakeData.Libraries[Id];
 		}
 	}
 }

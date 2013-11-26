@@ -8,5 +8,10 @@ namespace HalApp.Resources.Libraries
 		{
 			return FakeData.Libraries;
 		}
+
+		object IGet.Get(dynamic agrs)
+		{
+			return Get(agrs);
+		}
 	}
 }

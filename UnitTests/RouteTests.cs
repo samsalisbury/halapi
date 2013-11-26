@@ -7,11 +7,27 @@ namespace HalApp.UnitTests
 	public class RouteTests
 	{
 		[Test]
-		public void it_builds_routes_from_assembly()
+		public void it_finds_the_root_route()
 		{
-			var routes = Route.BuildRoots();
+			var routes = Route.BuildRoutes();
 
-			routes.Find("GET", "/").Handler.ShouldBeTypeOf<GetRoot>();
+			routes.Find("GET", "/").HandlerType.FullName.ShouldBe(typeof (GetRoot).FullName);
+		}
+
+		[Test]
+		public void it_finds_a_collection_route()
+		{
+			var routes = Route.BuildRoutes();
+
+			routes.Find("GET", "/libraries").HandlerType.FullName.ShouldBe(typeof(GetRoot).FullName);
+		}
+
+		[Test]
+		public void it_finds_an_item_route()
+		{
+			var routes = Route.BuildRoutes();
+
+			routes.Find("GET", "/libraries/2'").HandlerType.FullName.ShouldBe(typeof(GetRoot).FullName);
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace HalApp.UnitTests
 			[Test]
 			public void it_returns_the_root_json()
 			{
-				var server = new Server();
+				var server = new Server(Route.BuildRoutes());
 				var result = server.Get("/");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
@@ -28,7 +28,7 @@ namespace HalApp.UnitTests
 			[Test]
 			public void it_should_return_a_list_of_libraries()
 			{
-				var server = new Server();
+				var server = new Server(Route.BuildRoutes());
 				var result = server.Get("/libraries");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);
@@ -43,7 +43,7 @@ namespace HalApp.UnitTests
 			[Test]
 			public void it_should_return_the_library_details()
 			{
-				var server = new Server();
+				var server = new Server(Route.BuildRoutes());
 				var result = server.Get("/libraries/2");
 
 				var deserialised = JsonConvert.DeserializeObject<Resource>(result);

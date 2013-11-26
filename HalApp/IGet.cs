@@ -2,18 +2,43 @@
 
 namespace HalApp
 {
-	public interface IHttpHandler
+	public interface IRequestHandler
 	{
 		
 	}
 
-	public interface IGetSingle<T> : IHttpHandler
+	public interface IGet : IRequestHandler
 	{
-		T Get(dynamic args = null);
+		object Get(dynamic agrs = null);
 	}
 
-	public interface IGetList<T> : IHttpHandler
+	public interface IGet<out TEntity> : IGet
 	{
-		IList<T> Get(dynamic args = null);
+		new TEntity Get(dynamic args = null);
+	}
+
+	public interface IGet<out TEntity, TId> : IGet<TEntity>
+	{
+		TId Id { get; set; }
+	}
+
+	public interface IGetList<TEntity> : IGet
+	{
+		new IList<TEntity> Get(dynamic args = null);
+	}
+
+	public abstract class Getter<TEntity> : IGet<TEntity>
+	{
+		public abstract TEntity Get(dynamic args = null);
+
+		object IGet.Get(dynamic agrs)
+		{
+			return Get(agrs);
+		}
+	}
+
+	public abstract class Getter<TEntity, TId> : Getter<TEntity>, IGet<TEntity, TId>
+	{
+		public TId Id { get; set; }
 	}
 }

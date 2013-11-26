@@ -11,7 +11,7 @@ namespace HalApp.UnitTests
 			[Test]
 			public void it_returns_the_library()
 			{
-				var getter = new GetLibrary {LibraryId = 2};
+				var getter = new GetLibrary {Id = 2};
 				var result = getter.Get();
 
 				result.Name.ShouldBe("Haringey Library");
